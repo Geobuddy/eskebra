@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block  categories %}
+	<h3 class="aside-title">Categorias</h3>
+	<div class="checkbox-filter">
+		{% for key, category in categories %}
+		<div class="input-checkbox">
+			<input type="checkbox" id="category-{{ forloop.counter }}" name="categories">
+			<label for="category-{{ forloop.counter }}">
+				<span></span>
+				{{ category }}
+			</label>
+		</div>
+		{% endfor %}
+	</div>
+{% endblock  %}
+
+{% block  stores %}
+	<h3 class="aside-title">Lojas</h3>
+	<div class="checkbox-filter">
+		{% for store in stores %}
+		<div class="input-checkbox">
+			<input type="checkbox" id="brand-{{ forloop.counter }}" name="stores">
+			<label for="brand-{{ forloop.counter }}">
+				<span></span>
+				{{ store.vendor_name }}
+			</label>
+		</div>
+		{% endfor %}
+	</div>
+{% endblock  %}
+	
+
+{% block content %}
+	{% load djmoney %}
+	{% for ads in myads.all %}
+	<!-- product -->
+	<div class="col-md-4 col-xs-6 infinite-container">
+		<div class="product infinite-item">
+			<div class="product-img">
+				<img src="{{ads.link_image}}" alt="">
+				<div class="product-label">
+					<span class="sale">-30%</span>
+					<span class="new">NOVO</span>
+				</div>
+			</div>
+			<div class="product-body">
+				<p class="product-category">{{ ads.vendor_name }}</p>
+				<h3 class="product-name" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><a href="{{ ads.link_vendor}}">{{ads.name}}</a></h3>
+				<h4 class="product-price"><del class="product-old-price">{{ ads.price }}</del> {{ ads.disc_price }}</h4>
+				<div class="product-rating">
+				</div>
+				<div>
+					<button class="primary-btn" onclick=" window.open('{{ ads.link_vendor }}','_blank')"> Obter Desconto</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /product -->
+	{% endfor %}
+{% endblock %}
