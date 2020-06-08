@@ -2207,3 +2207,15 @@ textarea.input {
     margin-top: 10px;
   }
 }
+
+/*=========================================================
+	14 -> BACK TO TOP ARROW
+===========================================================*/
+.back-to-top {
+  position: fixed;
+  bottom: 26px;
+  right: 34px;
+  z-index: 98;
+  padding: 11px;
+  background-color: #bc0020;
+}

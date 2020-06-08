@@ -1,25 +1,48 @@
 from django.db import models
 from django.utils.translation import gettext as _
-from djmoney.models.fields import MoneyField
-
+# from djmoney.models.fields import MoneyField
+from decimal import Decimal
 
 # Create your models here.
 class Ads(models.Model):
-    CATEGORIES = [('eletrônicos','Eletrônicos'), ('fashion & acessórios','Fashion & Acessórios'), 
-                  ('jogos','Jogos'), ('casa & lar','Casa & Lar'),
-                  ('família & crianças','Família & Crianças'), ('jardim','Jardim'),
-                  ('saúde & beleza','Saúde & Beleza'), ('desporto','Desporto')]
 
-    name  = models.CharField(_("Product Name"), max_length=200) #increase length to 200
-    vendor_name  = models.CharField(_("Vendor Name"), max_length=100) #increase length to 100
-    price = MoneyField(_("Product Price"), max_digits=12, decimal_places=2, default_currency='AOA')
-    disc_price = MoneyField(_("Product Dicount Price"), max_digits=12, decimal_places=2, default_currency='AOA')
+    CATEGORIES = ['Eletrônicos','Fashion & Acessórios','Jogos','Casa & Lar',
+                  'Família & Crianças','Jardim','Saúde & Beleza','Desporto',
+                  'Escritório']
+    
+    STORES = ['Kinda Home', 'Inovia', 'Casacon', 'NCR Angola', 
+              'Seaside', 'Soba-store', 'Megáfrica', 'Maxi', 
+              'Meu Merkado', 'Okulandas', 'Brechó Angola','Amo']
+    
+    CATEGORY = []
+    for category in CATEGORIES:
+        CATEGORY.append((category,category))
+
+    STORE = []
+    for store in STORES:
+        STORE.append((store,store))
+
+    name  = models.CharField(_("Product Name"), max_length=200) 
+    vendor_name  = models.CharField(_("Vendor Name"), max_length=100, choices= STORE, default=1) 
+    price = models.DecimalField(_("Product Price"), max_digits=12, decimal_places=2)
+    disc_price = models.DecimalField(_("Product Dicount Price"), max_digits=12, decimal_places=2)
+    disc_off = models.IntegerField(_("Price Off"), blank=True)
     description = models.TextField(_("Product Description"), blank=True)
     link_vendor = models.URLField(_("Vendor Link"), max_length=2048) #increase length to 2048
     link_image = models.URLField(_("Product Image Link"), max_length=2048) #increase length to 2048
-    category = models.CharField(_("Product category"), max_length=200, choices= CATEGORIES)
-    # created_date = models.DateTimeField(_("Time of Creation"), auto_now=False, auto_now_add=False)
+    category = models.CharField(_("Product category"), max_length=200, choices= CATEGORY, default=1)
+    created_date = models.DateTimeField(_("Time of Creation"), auto_now_add=True)
 
+    def price_off(self):
+        price = Decimal((self.price - self.disc_price)/self.price)* Decimal(100)
+        price = round(price,1)
+        return int(price)
+
+
+    def save(self, *args, **kwargs):
+        self.disc_off = self.price_off()
+        super(Ads, self).save(*args, **kwargs)
+    
     class Meta:
         verbose_name = _("")
         verbose_name_plural = _("Ads")
@@ -33,8 +56,8 @@ class Ads(models.Model):
 
 
 class User(models.Model):
-    email  = models.EmailField(_("Email"), max_length=254)
-
+    email  = models.EmailField(_("Email"), max_length=254, primary_key=True)
+    created_date = models.DateTimeField(_("Time of Creation"), auto_now_add=False)
     class Meta:
         verbose_name = _("")
         verbose_name_plural = _("Users")

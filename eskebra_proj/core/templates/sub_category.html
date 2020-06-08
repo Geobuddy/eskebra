@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+<ul class="main-nav nav navbar-nav">
+    <li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="{% url 'store' %}">Lojas</a></li>
+    <li class="active"><a href="{% url 'category' %}">Categorias</a></li>
+</ul>
+{% endblock %}
+
+{% block breadcrumb %}
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'category' %}">Categorias</a></li>
+                    <li class="active">Accessories</li>
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+{% endblock %}
+
+{% block content %}
+	{% load humanize %}
+	{% for ads in myads.all %}
+	<!-- product -->
+	<div class="col-md-4 col-xs-6 infinite-container">
+		<div class="product infinite-item">
+			<div class="product-img">
+				<img src="{{ads.link_image}}" alt="">
+				<div class="product-label">
+					<span class="sale">-{{ ads.disc_off }}%</span>
+					{% if ads.created_date.date == time.date %}
+					<span class="new">NOVO</span>
+					{% endif %}
+				</div>
+			</div>
+			<div class="product-body">
+				<p class="product-category">{{ ads.vendor_name }}</p>
+				<h3 class="product-name" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><a href="{{ ads.link_vendor}}">{{ads.name}}</a></h3>
+				<h4 class="product-price"><del class="product-old-price">Kz {{ ads.price|intcomma }}</del> Kz {{ ads.disc_price|intcomma  }}</h4>
+				<div class="product-rating">
+				</div>
+				<div>
+					<button class="primary-btn" onclick=" window.open('{{ ads.link_vendor }}','_blank')"> Obter Desconto</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /product -->
+	{% endfor %}
+{% endblock %}

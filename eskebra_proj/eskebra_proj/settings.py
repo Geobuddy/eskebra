@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'core',
     'import_export',
     'django.contrib.humanize',
-    'djmoney',
 ]
 
 MIDDLEWARE = [
