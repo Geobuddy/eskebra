@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Ads, User
 from .forms import AddEmail, Vendor
 import datetime
+from django.db.models import Q
 
 
 #Create a function to check wether parms are valid 
@@ -11,28 +12,29 @@ def is_valid_param(param):
 def filter(request):
         ads = Ads.objects.order_by('-created_date').all()
         title_contains_query = request.GET.get('title_contains')        
-        category_contains_query= request.GET.get('category')
-
-        # vendor_contains_query = request.GET.get('theForm')
+        category_contains_query = request.GET.getlist('category')
+        vendor_contains_query = request.GET.getlist('vendor_name')
 
         if is_valid_param(title_contains_query):
-                ads = ads.filter(name__icontains=title_contains_query)
+                or_lookup= (Q(name__icontains=title_contains_query) 
+                | Q(vendor_name__iexact=title_contains_query))
+                ads = ads.filter(or_lookup)
         
-        if is_valid_param(category_contains_query):
-                ads = ads.filter(category__icontains=category_contains_query)
+        if is_valid_param(category_contains_query) or is_valid_param(vendor_contains_query):
+                or_lookup= (Q(category__in=category_contains_query) 
+                | Q(vendor_name__in=vendor_contains_query))
+                ads = ads.filter(or_lookup)
 
-        # if is_valid_param(vendor_contains_query):
-        #         ads = ads.filter(vendor_name__icontains=vendor_contains_query)
-       
+
+        print(ads)
         return ads
 
 # Create your views here.
 def index(request):
         ads = filter(request)
         EmailForm = AddEmail()
-        myform = Vendor()
+        myform = Vendor(request.GET)
         today = datetime.datetime.now()
-        
         data = {'myads': ads,
                 'form': EmailForm,
                 'myform': myform,
@@ -47,6 +49,19 @@ def post(request):
                 if form.is_valid():
                         form.save()
                 return redirect('/')
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # def store(request):
 #         ads = filter(request)

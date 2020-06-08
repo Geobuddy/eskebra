@@ -15,16 +15,17 @@ class Vendor(forms.ModelForm):
     category = forms.BooleanField(
     widget=forms.CheckboxSelectMultiple(choices=Ads.CATEGORY, attrs={
             # "checked": "",
-            "class": "input"
+            "onClick": "this.form.submit()"
         }
     ),
     required=False
     )
 
+
     vendor_name = forms.BooleanField(
     widget=forms.CheckboxSelectMultiple(choices=Ads.STORE, attrs={
             # "checked": "",
-            "class": "input"
+            "onClick": "this.form.submit()"
         }
     ),
     required=True
