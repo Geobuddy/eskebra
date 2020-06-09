@@ -11,13 +11,13 @@ def is_valid_param(param):
 
 def filter(request):
         ads = Ads.objects.order_by('-created_date').all()
-        title_contains_query = request.GET.get('title_contains')        
+        search_query = request.GET.get('search')        
         category_contains_query = request.GET.getlist('category')
         vendor_contains_query = request.GET.getlist('vendor_name')
 
-        if  is_valid_param(title_contains_query):
-                or_lookup= (Q(name__icontains=title_contains_query) |
-                Q(vendor_name__iexact=title_contains_query))
+        if  is_valid_param(search_query):
+                or_lookup= (Q(name__icontains=search_query) |
+                Q(vendor_name__iexact=search_query))
                 ads = ads.filter(or_lookup)
                 if not ads:
                         ads =['Not found']
@@ -54,68 +54,3 @@ def post(request):
                 if form.is_valid():
                         form.save()
                 return redirect('/')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# def store(request):
-#         ads = filter(request)
-#         EmailForm = AddEmail()
-#         myform = Vendor()
-#         today = datetime.datetime.now()
-        
-#         data = {'myads': ads,
-#                 'form': EmailForm,
-#                 'myform': myform,
-#                 'time': today}
-
-#         return render(request, 'store.html', data)
-
-# def category(request):
-#         ads = filter(request)
-#         EmailForm = AddEmail()
-#         myform = Vendor()
-#         today = datetime.datetime.now()
-        
-#         data = {'myads': ads,
-#                 'form': EmailForm,
-#                 'myform': myform,
-#                 'time': today}
-
-#         return render(request, 'category.html', data)
-
-# def sub_store(request):
-#         ads = filter(request)
-#         EmailForm = AddEmail()
-#         myform = Vendor()
-#         today = datetime.datetime.now()
-        
-#         data = {'myads': ads,
-#                 'form': EmailForm,
-#                 'myform': myform,
-#                 'time': today}
-
-#         return render(request, 'sub_store.html', data)
-
-# def sub_category(request):
-#         ads = filter(request)
-#         EmailForm = AddEmail()
-#         myform = Vendor()
-#         today = datetime.datetime.now()
-        
-#         data = {'myads': ads,
-#                 'form': EmailForm,
-#                 'myform': myform,
-#                 'time': today}
-
-#         return render(request, 'sub_category.html', data)

@@ -15,11 +15,9 @@ class Ads(models.Model):
               'Meu Merkado', 'Okulandas', 'Brechó Angola','Amo']
     
     CATEGORY = []
-    for category in CATEGORIES:
-        CATEGORY.append((category,category))
-
     STORE = []
-    for store in STORES:
+    for category, store in zip(CATEGORIES,STORES):
+        CATEGORY.append((category,category))
         STORE.append((store,store))
 
     name  = models.CharField(_("Product Name"), max_length=200) 
