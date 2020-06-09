@@ -4,11 +4,12 @@ from core.models import User, Ads
 class AddEmail(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('email',)
+        fields = ('email',) #add created_email
         widgets = {
             'email': forms.TextInput(attrs={'class': 'input',
                                     'type': 'email',
-                                    'placeholder': 'Digite Seu Email'}),
+                                    'placeholder': 'Digite Seu Email'})
+            # 'created_date': forms.DateTimeField()
         }
 
 class Vendor(forms.ModelForm):

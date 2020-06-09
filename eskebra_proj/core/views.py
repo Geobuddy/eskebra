@@ -7,7 +7,7 @@ from django.db.models import Q
 
 #Create a function to check wether parms are valid 
 def is_valid_param(param):
-        return param != '' and param is not None
+        return param != ' ' and param is not None
 
 def filter(request):
         ads = Ads.objects.order_by('-created_date').all()
@@ -15,26 +15,31 @@ def filter(request):
         category_contains_query = request.GET.getlist('category')
         vendor_contains_query = request.GET.getlist('vendor_name')
 
-        if is_valid_param(title_contains_query):
-                or_lookup= (Q(name__icontains=title_contains_query) 
-                | Q(vendor_name__iexact=title_contains_query))
+        if  is_valid_param(title_contains_query):
+                or_lookup= (Q(name__icontains=title_contains_query) |
+                Q(vendor_name__iexact=title_contains_query))
                 ads = ads.filter(or_lookup)
+                if not ads:
+                        ads =['Not found']
+
+        if vendor_contains_query:
+                ads = ads.filter(Q(vendor_name__in=vendor_contains_query))
+
+        if category_contains_query:
+                ads = ads.filter(Q(category__in=category_contains_query))
         
-        if is_valid_param(category_contains_query) or is_valid_param(vendor_contains_query):
-                or_lookup= (Q(category__in=category_contains_query) 
-                | Q(vendor_name__in=vendor_contains_query))
-                ads = ads.filter(or_lookup)
+        elif vendor_contains_query and category_contains_query:
+                ads = ads.filter(Q(category__in=category_contains_query), Q(vendor_name__in=vendor_contains_query))
 
-
-        print(ads)
         return ads
 
 # Create your views here.
 def index(request):
-        ads = filter(request)
         EmailForm = AddEmail()
-        myform = Vendor(request.GET)
         today = datetime.datetime.now()
+        myform = Vendor(request.GET)
+        ads = filter(request)
+        # print(ads)
         data = {'myads': ads,
                 'form': EmailForm,
                 'myform': myform,
