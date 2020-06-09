@@ -55,11 +55,53 @@
 						</ul>
 						<ul class="header-links pull-right">
 							{% comment %} <li><a href="#"><i class="fa fa-user-o"></i> Login</a></li> {% endcomment %}
-							<li><a href="#newsletter"><i class="fa fa-envelope-o"></i> Inscreva-se</a></li>
+							<li><a href="" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope-o"></i> Inscreva-se</a></li>
 						</ul>
 					</div>
 				</div>
 				<!-- /TOP HEADER -->
+
+				<!-- MODAL https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_modal&stacked=h -->
+				<div class="modal" id="myModal">
+					<div class="modal-dialog">
+					<div class="modal-content">
+					
+						<!-- Modal Header -->
+						<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						
+						<!-- Modal body -->
+						<!-- row -->
+						<div id="newsletter" class="row" style="margin: 20px;">
+							<div class="col-md-12">
+								<div class="newsletter">
+									<p>Inscreva-se para  <strong>BOLETIM DE NOTÍCIAS</strong></p>
+									<form action= "/content" method="post"> 
+										{% csrf_token %}
+										{{ form.email }}
+										<button class="newsletter-btn"><i class="fa fa-envelope"></i> Inscreva-se</button>
+									</form>
+									<ul class="newsletter-follow">
+										<li>
+											<a href="#"><i class="fa fa-facebook"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="fa fa-twitter"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="fa fa-instagram"></i></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!-- /row -->
+
+					</div>
+					</div>
+				</div>
+				<!-- /MODAL -->
 
 				<!-- MAIN HEADER -->
 				<div id="header">
@@ -250,9 +292,6 @@
 								<li>
 									<a href="#"><i class="fa fa-instagram"></i></a>
 								</li>
-								{% comment %} <li>
-									<a href="#"><i class="fa fa-pinterest"></i></a>
-								</li> {% endcomment %}
 							</ul>
 						</div>
 					</div>
