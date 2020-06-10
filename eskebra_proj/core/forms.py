@@ -9,7 +9,6 @@ class AddEmail(forms.ModelForm):
             'email': forms.TextInput(attrs={'class': 'input',
                                     'type': 'email',
                                     'placeholder': 'Digite Seu Email'})
-            # 'created_date': forms.DateTimeField()
         }
 
 class Vendor(forms.ModelForm):

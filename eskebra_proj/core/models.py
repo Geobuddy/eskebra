@@ -55,7 +55,7 @@ class Ads(models.Model):
 
 class User(models.Model):
     email  = models.EmailField(_("Email"), max_length=254, primary_key=True)
-    # created_date = models.DateTimeField(_("Time of Creation"), auto_now_add=False)
+    created_date = models.DateTimeField(_("Time of Creation"), auto_now_add=True)
 
     class Meta:
         verbose_name = _("")
