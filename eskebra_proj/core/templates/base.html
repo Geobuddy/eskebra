@@ -195,12 +195,12 @@
 							</div>
 							<!-- /aside Widget -->
 
-							<!-- aside Widget -->
+							{% comment %} <!-- aside Widget -->
 							<div class="aside">
 								{% block stores%}
 								{% endblock %}
 							</div>
-							<!-- /aside Widget --> 
+							<!-- /aside Widget -->  {% endcomment %}
 							{% for no_ads in myads.all %}
 							{% if no_ads.created_date.date == time.date %}	
 							<div class="aside">
