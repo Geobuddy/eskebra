@@ -14,7 +14,6 @@ class AddEmail(forms.ModelForm):
 class Vendor(forms.ModelForm):
     category = forms.BooleanField(
     widget=forms.CheckboxSelectMultiple(choices=Ads.CATEGORY, attrs={
-            # "checked": "",
             "onClick": "this.form.submit()"
         }
     ),
@@ -24,7 +23,6 @@ class Vendor(forms.ModelForm):
 
     vendor_name = forms.BooleanField(
     widget=forms.CheckboxSelectMultiple(choices=Ads.STORE, attrs={
-            # "checked": "",
             "onClick": "this.form.submit()"
         }
     ),

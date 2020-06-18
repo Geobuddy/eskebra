@@ -44,6 +44,10 @@ class Ads(models.Model):
     class Meta:
         verbose_name = _("")
         verbose_name_plural = _("Ads")
+        unique_together = ['name','link_vendor']
+        constraints = [
+            models.CheckConstraint(check= models.Q(price__gt = models.F('disc_price')), name='check_prices')
+        ]
 
     def __str__(self):
         return self.name
@@ -54,12 +58,15 @@ class Ads(models.Model):
 
 
 class User(models.Model):
-    email  = models.EmailField(_("Email"), max_length=254, primary_key=True)
+    email  = models.EmailField(_("Email"), max_length=254)
     created_date = models.DateTimeField(_("Time of Creation"), auto_now_add=True)
 
     class Meta:
         verbose_name = _("")
         verbose_name_plural = _("Users")
+        constraints = [
+            models.UniqueConstraint(fields=['email'], name='unique_user')
+        ]
 
     def __str__(self):
         return self.email
