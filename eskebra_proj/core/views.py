@@ -3,6 +3,7 @@ from .models import Ads, User
 from .forms import AddEmail, Vendor
 import datetime
 from django.db.models import Q
+from django.contrib import messages
 
 
 #Create a function to check wether parms are valid 
@@ -36,14 +37,14 @@ def filter(request):
 # Create your views here.
 def index(request):
         EmailForm = AddEmail()
-        today = datetime.datetime.now()
         myform = Vendor(request.GET)
         ads = filter(request)
-        # print(ads)
+        new_adds = Ads.objects.filter(created_date__date=datetime.datetime.now()).order_by('-created_date')
+
         data = {'myads': ads,
                 'form': EmailForm,
                 'myform': myform,
-                'time': today}
+                'new_adds': new_adds}
 
         return render(request, 'home.html', data)
 

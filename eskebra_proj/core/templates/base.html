@@ -77,11 +77,12 @@
 							<div class="col-md-12">
 								<div class="newsletter">
 									<p>Inscreva-se para  <strong>BOLETIM DE NOTÍCIAS</strong></p>
-									<form action= "/content" method="post"> 
+									<form action= "/newsletter" method="post"> 
 										{% csrf_token %}
 										{{ form.email }}
 										<button class="newsletter-btn"><i class="fa fa-envelope"></i> Inscreva-se</button>
 									</form>
+
 									<ul class="newsletter-follow">
 										<li>
 											<a href="#"><i class="fa fa-facebook"></i></a>
@@ -201,12 +202,10 @@
 								{% endblock %}
 							</div>
 							<!-- /aside Widget -->  {% endcomment %}
-							{% for no_ads in myads.all %}
-							{% if no_ads.created_date.date == time.date %}	
+							{% comment %} {% if new_ads.count != 0 %}	
 							<div class="aside">
 								<h3 class="aside-title">Novos Productos</h3>
-								{% for ads in myads.all|slice:":4" %}
-								{% if ads.created_date.date == time.date %}	
+								{% for ads in new_adds|slice:":4" %}
 								<div class="product-widget">
 									<div class="product-img">
 										<img src="{{ads.link_image}}" alt="">
@@ -217,15 +216,13 @@
 										<h5 class="product-price"><del class="product-old-price"> Kz{{ ads.price|intcomma  }}</del> Kz{{ ads.disc_price|intcomma }}</h4>
 									</div>
 								</div>
-								{% endif %}
 								{% endfor %}
 							</div>
 							{% else %}
-
+							
 							{% endif %}
-							{% endfor %}
 						</div>
-						<!-- /ASIDE -->
+						<!-- /ASIDE --> {% endcomment %}
 
 						<!-- STORE -->
 						<div id="store" class="col-md-9">
@@ -277,7 +274,7 @@
 					<div class="col-md-12">
 						<div class="newsletter">
 							<p>Inscreva-se para  <strong>BOLETIM DE NOTÍCIAS</strong></p>
-							<form action= "/content" method="post"> 
+							<form action= "/newsletter" method="post"> 
 								{% csrf_token %}
 								{{ form.email }}
 								<button class="newsletter-btn"><i class="fa fa-envelope"></i> Inscreva-se</button>
