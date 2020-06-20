@@ -49,8 +49,8 @@
 				<div id="top-header">
 					<div class="container">
 						<ul class="header-links pull-left">
-							<li><a href="#"><i class="fa fa-phone"></i> +244-941-161-110</a></li>
-							<li><a href="mailto: info@eskebra.com"><i class="fa fa-envelope-o"></i> info@eskebra.com</a></li>
+							<li><a href="tel:+244941161110"><i class="fa fa-phone"></i> +244-941-161-110</a></li>
+							<li><a href="mailto: info@eskebra.com" target="blank"><i class="fa fa-envelope-o"></i> info@eskebra.com</a></li>
 							<li><a href="https://goo.gl/maps/z2RiRz2hyYmFbWL5A" target="blank"><i class="fa fa-map-marker"></i> 53 Urbanização Nova Vida</a></li>
 						</ul>
 						<ul class="header-links pull-right">
@@ -85,13 +85,13 @@
 
 									<ul class="newsletter-follow">
 										<li>
-											<a href="#"><i class="fa fa-facebook"></i></a>
+											<a href="https://facebook.com/eskebra_ao" target="blank"><i class="fa fa-facebook"></i></a>
 										</li>
 										<li>
-											<a href="#"><i class="fa fa-twitter"></i></a>
+											<a href="https://twitter.com/eskebra_ao" target="blank"><i class="fa fa-twitter"></i></a>
 										</li>
 										<li>
-											<a href="#"><i class="fa fa-instagram"></i></a>
+											<a href="https://instagram.com/eskebra_ao" target="blank"><i class="fa fa-instagram"></i></a>
 										</li>
 									</ul>
 								</div>
@@ -196,41 +196,20 @@
 							</div>
 							<!-- /aside Widget -->
 
-							{% comment %} <!-- aside Widget -->
+							<!-- aside Widget -->
 							<div class="aside">
 								{% block stores%}
 								{% endblock %}
 							</div>
-							<!-- /aside Widget -->  {% endcomment %}
-							{% comment %} {% if new_ads.count != 0 %}	
-							<div class="aside">
-								<h3 class="aside-title">Novos Productos</h3>
-								{% for ads in new_adds|slice:":4" %}
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="{{ads.link_image}}" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category" >{{ ads.vendor_name }}</p>
-										<h3 class="product-name" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><a href="{{ ads.link_vendor}}">{{ads.name}}</a></h3>
-										<h5 class="product-price"><del class="product-old-price"> Kz{{ ads.price|intcomma  }}</del> Kz{{ ads.disc_price|intcomma }}</h4>
-									</div>
-								</div>
-								{% endfor %}
-							</div>
-							{% else %}
+							<!-- /aside Widget -->  
 							
-							{% endif %}
 						</div>
-						<!-- /ASIDE --> {% endcomment %}
+						<!-- /ASIDE --> 
 
 						<!-- STORE -->
 						<div id="store" class="col-md-9">
 							<!-- store products -->
 							<div class="row">
-								<div class="aside">
-									<h3 class="aside-title">Últimas ofertas</h3>
-								</div>
 								{% block content%}
 								{% endblock %}
 								<div class="clearfix visible-sm visible-xs"></div>
@@ -281,13 +260,13 @@
 							</form>
 							<ul class="newsletter-follow">
 								<li>
-									<a href="#"><i class="fa fa-facebook"></i></a>
+									<a href="https://facebook.com/eskebra_ao" target="blank"><i class="fa fa-facebook"></i></a>
 								</li>
 								<li>
-									<a href="#"><i class="fa fa-twitter"></i></a>
+									<a href="https://twitter.com/eskebra_ao" target="blank"><i class="fa fa-twitter"></i></a>
 								</li>
 								<li>
-									<a href="#"><i class="fa fa-instagram"></i></a>
+									<a href="https://instagram.com/eskebra_ao" target="blank"><i class="fa fa-instagram"></i></a>
 								</li>
 							</ul>
 						</div>
@@ -312,8 +291,8 @@
 								<h3 class="footer-title">About Us</h3>
 								<p>Eskebra - Descontos que nunca acabam.</p>
 								<ul class="footer-links">
-									<li><a href="#"><i class="fa fa-phone"></i> +244-941-161-110</a></li>
-									<li><a href="mailto: info@eskebra.com"><i class="fa fa-envelope-o"></i> info@eskebra.com</a></li>
+									<li><a href="tel:+244941161110"><i class="fa fa-phone"></i> +244-941-161-110</a></li>
+									<li><a href="mailto: info@eskebra.com" target="blank"><i class="fa fa-envelope-o"></i> info@eskebra.com</a></li>
 									<li><a href="https://goo.gl/maps/z2RiRz2hyYmFbWL5A" target="blank"><i class="fa fa-map-marker"></i> 53
 									Urbanização Nova Vida</a></li>
 								</ul>
@@ -394,7 +373,7 @@
 		<script>
 			var infinite = new Waypoint.Infinite({
 				element: $('.infinite-container')[0]
-			})
+			});
 		</script>
 
 		<script>

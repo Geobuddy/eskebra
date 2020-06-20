@@ -48,8 +48,22 @@ def index(request):
 
         return render(request, 'home.html', data)
 
+# def wishlist(request):
+#         EmailForm = AddEmail()
+#         myform = Vendor(request.GET)
+#         ads = filter(request)
+#         new_adds = Ads.objects.filter(created_date__date=datetime.datetime.now()).order_by('-created_date')
 
-def post(request):
+#         data = {'myads': ads,
+#                 'form': EmailForm,
+#                 'myform': myform,
+#                 'new_adds': new_adds}
+
+#         return render(request, 'wishlist.html', data)
+
+# POST Methods
+
+def email(request):
         if request.method == 'POST':
                 form = AddEmail(request.POST)
                 if form.is_valid():
